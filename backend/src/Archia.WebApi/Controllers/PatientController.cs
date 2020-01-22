@@ -34,8 +34,6 @@ namespace Archia.WebApi.Controllers
         /// <summary>
         /// Create a new patient. 
         /// </summary>
-        /// <returns>The ID of the new patient.</returns>
-        //[HttpPut(Name = nameof(CreatePatient))]
         [HttpPost]
         public async Task<int> CreatePatient(Patient patient, CancellationToken cancellationToken)
         {
@@ -46,7 +44,6 @@ namespace Archia.WebApi.Controllers
         /// <summary>
         /// Get all patients.
         /// </summary>
-        //[HttpGet(Name = nameof(GetPatients))]
         [HttpGet]
         public async Task<IEnumerable<Patient>> GetPatients(CancellationToken cancellationToken)
         {
@@ -57,7 +54,6 @@ namespace Archia.WebApi.Controllers
         /// <summary>
         /// Get a patient by ID.
         /// </summary>
-        /// <returns>The patient, or null.</returns>
         [HttpGet("{id}")]
         public async Task<Patient> GetPatient(int id, CancellationToken cancellationToken)
         {

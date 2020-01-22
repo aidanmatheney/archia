@@ -16,6 +16,8 @@ namespace Archia.WebApi
 
     using Archia.Data.Services;
     using Archia.Utils;
+    using Microsoft.AspNetCore.Mvc.Controllers;
+    using Microsoft.AspNetCore.Mvc.Abstractions;
 
     internal sealed class Startup
     {
@@ -46,6 +48,14 @@ namespace Archia.WebApi
                 {
                     Title = "Archia Web API",
                     Version = "v1"
+                });
+
+                options.CustomOperationIds(api =>
+                {
+                    if (api.ActionDescriptor is ControllerActionDescriptor controllerAction)
+                        return controllerAction.ActionName;
+
+                    throw new InvalidOperationException($"Unknown {nameof(ActionDescriptor)} type: {api.ActionDescriptor.GetType()}");
                 });
 
                 var docFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
