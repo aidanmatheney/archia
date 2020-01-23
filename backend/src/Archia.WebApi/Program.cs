@@ -2,10 +2,10 @@ namespace Archia.WebApi
 {
     using System;
 
+    using Archia.Data.Migrations;
+
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Hosting;
-
-    using Archia.Data.Migrations;
 
     internal static class Program
     {

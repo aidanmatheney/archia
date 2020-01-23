@@ -1,12 +1,11 @@
-﻿using Archia.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Archia.Data.Services
+﻿namespace Archia.Data.Services
 {
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using Archia.Data.Entities;
+
     public interface IPatientService
     {
         Task<int> CreatePatientAsync(Patient patient, CancellationToken cancellationToken = default);

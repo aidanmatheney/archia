@@ -5,8 +5,13 @@ namespace Archia.WebApi
     using System.IO;
     using System.Reflection;
 
+    using Archia.Data.Services;
+    using Archia.Utils;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc.Abstractions;
+    using Microsoft.AspNetCore.Mvc.Controllers;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -14,13 +19,9 @@ namespace Archia.WebApi
 
     using MySql.Data.MySqlClient;
 
-    using Archia.Data.Services;
-    using Archia.Utils;
-    using Microsoft.AspNetCore.Mvc.Controllers;
-    using Microsoft.AspNetCore.Mvc.Abstractions;
-
     internal sealed class Startup
     {
+        private const string ConnectionStringEnvironmentVariableName = "ARCHIA_WEBAPI_CONNECTIONSTRING";
         private const string DevelopmentCorsPolicyName = "DevelopmentCorsPolicy";
 
         public Startup(IConfiguration configuration)
@@ -63,9 +64,9 @@ namespace Archia.WebApi
                 options.IncludeXmlComments(docFilePath);
             });
 
-            var connectionString = Environment.GetEnvironmentVariable("ARCHIA_WEBAPI_CONNECTIONSTRING");
+            var connectionString = Environment.GetEnvironmentVariable(ConnectionStringEnvironmentVariableName);
             if (connectionString is null)
-                throw new InvalidOperationException("ARCHIA_WEBAPI_CONNECTIONSTRING environment variable is not set");
+                throw new InvalidOperationException($"{ConnectionStringEnvironmentVariableName} environment variable is not set");
             services.AddScoped<IDbConnection>(serviceProvider => new MySqlConnection(connectionString));
 
             services.AddScoped<IPatientService, PatientService>();

@@ -1,15 +1,15 @@
-﻿using Archia.Data.Entities;
-using Archia.Utils;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Archia.Data.Services
+﻿namespace Archia.Data.Services
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using Archia.Data.Entities;
+    using Archia.Utils;
+
     using Dapper;
-    
+
     public sealed class PatientService : IPatientService
     {
         private readonly IDbConnection _dbConnection;
@@ -57,7 +57,7 @@ SET @id = LAST_INSERT_ID();
         {
             return await _dbConnection.QueryAsync<Patient>(new CommandDefinition
             (
-                commandText: 
+                commandText:
                 @"
 SELECT
     Id,
@@ -89,7 +89,10 @@ SELECT
     WHERE Id = @id
 ;
                 ",
-                parameters: new { id },
+                parameters: new
+                {
+                    id
+                },
                 cancellationToken: cancellationToken
             )).ConfigureAwait(false);
         }
@@ -129,7 +132,10 @@ DELETE FROM Patient
     WHERE Id = @id
 ;
                 ",
-                parameters: new { id },
+                parameters: new
+                {
+                    id
+                },
                 cancellationToken: cancellationToken
             )).ConfigureAwait(false);
         }

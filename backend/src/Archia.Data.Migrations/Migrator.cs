@@ -1,10 +1,10 @@
 ﻿namespace Archia.Data.Migrations
 {
+    using Archia.Utils;
+
     using DbUp;
     using DbUp.Builder;
     using DbUp.Engine;
-
-    using Archia.Utils;
 
     public sealed class Migrator
     {

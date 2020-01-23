@@ -1,19 +1,17 @@
-﻿using Archia.Data.Entities;
-using Archia.Data.Services;
-using Archia.Utils;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Archia.WebApi.Controllers
+﻿namespace Archia.WebApi.Controllers
 {
-    [ApiController]
-    [Route("/api/[controller]")]
-    public sealed class PatientController : ControllerBase
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using Archia.Data.Entities;
+    using Archia.Data.Services;
+    using Archia.Utils;
+
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+
+    public sealed class PatientController : HomeControllerBase
     {
         private readonly IPatientService _patientService;
         private readonly ILogger _logger;
@@ -32,7 +30,7 @@ namespace Archia.WebApi.Controllers
         }
 
         /// <summary>
-        /// Create a new patient. 
+        ///     Create a new patient.
         /// </summary>
         [HttpPost]
         public async Task<int> CreatePatient(Patient patient, CancellationToken cancellationToken)
@@ -42,7 +40,7 @@ namespace Archia.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get all patients.
+        ///     Get all patients.
         /// </summary>
         [HttpGet]
         public async Task<IEnumerable<Patient>> GetPatients(CancellationToken cancellationToken)
@@ -52,7 +50,7 @@ namespace Archia.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get a patient by ID.
+        ///     Get a patient by ID.
         /// </summary>
         [HttpGet("{id}")]
         public async Task<Patient> GetPatient(int id, CancellationToken cancellationToken)
@@ -62,7 +60,7 @@ namespace Archia.WebApi.Controllers
         }
 
         /// <summary>
-        /// Update a patient by ID
+        ///     Update a patient by ID
         /// </summary>
         [HttpPut("{id}")]
         public async Task UpdatePatient(int id, Patient patient, CancellationToken cancellationToken)
@@ -71,7 +69,7 @@ namespace Archia.WebApi.Controllers
         }
 
         /// <summary>
-        /// Delete a patient by ID.
+        ///     Delete a patient by ID.
         /// </summary>
         [HttpDelete]
         public async Task DeletePatient(int id, CancellationToken cancellationToken)
