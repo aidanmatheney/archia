@@ -147,8 +147,10 @@
             // 
             // DatePicker
             // 
+            this.DatePicker.CustomFormat = "";
             this.DatePicker.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DatePicker.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.DatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.DatePicker.Location = new System.Drawing.Point(145, 36);
             this.DatePicker.Name = "DatePicker";
             this.DatePicker.Size = new System.Drawing.Size(646, 27);

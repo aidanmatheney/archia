@@ -1,6 +1,6 @@
 ﻿namespace Archia.WinForms
 {
-    partial class MainForm
+    partial class DashboardForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -150,14 +150,14 @@
             this.StatusLabel.Size = new System.Drawing.Size(38, 17);
             this.StatusLabel.Text = "status";
             // 
-            // MainForm
+            // DashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(739, 418);
             this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.MainPanel);
-            this.Name = "MainForm";
+            this.Name = "DashboardForm";
             this.Text = "Archia";
             this.MainPanel.ResumeLayout(false);
             this.MainPanel.PerformLayout();

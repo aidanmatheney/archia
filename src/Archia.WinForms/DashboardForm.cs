@@ -9,12 +9,12 @@
 
     using Archia.Utils;
 
-    public partial class MainForm : Form
+    public partial class DashboardForm : Form
     {
         private readonly string _username;
         private readonly ArchiaServiceProvider _services;
 
-        public MainForm(string username, ArchiaServiceProvider services)
+        public DashboardForm(string username, ArchiaServiceProvider services)
         {
             _username = username;
             _services = services;

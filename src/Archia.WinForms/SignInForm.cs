@@ -3,11 +3,11 @@
     using System;
     using System.Windows.Forms;
 
-    public partial class SignedOutForm : Form
+    public partial class SignInForm : Form
     {
         private readonly ArchiaServiceProvider _services;
 
-        public SignedOutForm(ArchiaServiceProvider services)
+        public SignInForm(ArchiaServiceProvider services)
         {
             _services = services;
 
@@ -35,8 +35,8 @@
 
                 Hide();
 
-                var mainForm = new MainForm(username, _services);
-                mainForm.ShowDialog();
+                var dashboardForm = new DashboardForm(username, _services);
+                dashboardForm.ShowDialog();
 
                 Show();
             }

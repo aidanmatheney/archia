@@ -16,13 +16,13 @@
         {
             var services = CreateServiceProvider();
 
-            var signedOutForm = new SignedOutForm(services);
-            signedOutForm.FormClosed += HandleSignedOutFormClosed;
+            var signInForm = new SignInForm(services);
+            signInForm.FormClosed += HandleSignInFormClosed;
 
-            signedOutForm.Show();
+            signInForm.Show();
         }
 
-        private void HandleSignedOutFormClosed(object sender, FormClosedEventArgs e)
+        private void HandleSignInFormClosed(object sender, FormClosedEventArgs e)
         {
             ExitThread();
         }

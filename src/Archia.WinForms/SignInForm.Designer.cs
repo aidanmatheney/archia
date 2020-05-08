@@ -1,6 +1,6 @@
 ﻿namespace Archia.WinForms
 {
-    partial class SignedOutForm
+    partial class SignInForm
     {
         /// <summary>
         /// Required designer variable.
@@ -167,13 +167,13 @@
             this.ProductLabel.Text = "Archia Electronic Medical Records System";
             this.ProductLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SignedOutForm
+            // SignInForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(541, 185);
             this.Controls.Add(this.MainPanel);
-            this.Name = "SignedOutForm";
+            this.Name = "SignInForm";
             this.Text = "Archia";
             this.CredentialsPanel.ResumeLayout(false);
             this.CredentialsPanel.PerformLayout();
