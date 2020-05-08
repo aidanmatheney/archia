@@ -175,7 +175,7 @@ namespace Archia.Data.Services
                         DestinationTableName = tableName,
                         NotifyAfter = 100
                     };
-                    bulkCopy.RowsCopied += (sender, args) =>
+                    bulkCopy.MySqlRowsCopied += (sender, args) =>
                     {
                         Logger.LogTrace("Loaded {rowsCopied}/{totalRows} rows into {tableName}...", args.RowsCopied, dataTable.Rows.Count, tableName);
                     };
