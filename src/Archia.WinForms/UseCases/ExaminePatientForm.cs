@@ -1,9 +1,10 @@
-﻿namespace Archia.WinForms
+﻿namespace Archia.WinForms.UseCases
 {
     using System;
     using System.Windows.Forms;
 
     using Archia.Entities;
+    using Archia.Utils;
 
     public partial class ExaminePatientForm : Form
     {
@@ -12,6 +13,9 @@
 
         public ExaminePatientForm(string username, ArchiaServiceProvider services)
         {
+            ThrowIf.Null(username, nameof(username));
+            ThrowIf.Null(services, nameof(services));
+
             _username = username;
             _services = services;
 

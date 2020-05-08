@@ -1,5 +1,6 @@
 ﻿namespace Archia.Data.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
@@ -8,13 +9,10 @@
 
     public interface IPatientService
     {
-        Task<int> CreatePatientAsync(Patient patient, CancellationToken cancellationToken = default);
-
         Task<IEnumerable<Patient>> GetPatientsAsync(CancellationToken cancellationToken = default);
-        Task<Patient> GetPatientAsync(int id, CancellationToken cancellationToken = default);
-
-        Task UpdatePatientAsync(int id, Patient patient, CancellationToken cancellationToken = default);
-
-        Task DeletePatientAsync(int id, CancellationToken cancellationToken = default);
+        Task<Patient?> FindPatientByIdAsync(Guid id, CancellationToken cancellationToken = default);
+        Task CreatePatientAsync(Patient patient, CancellationToken cancellationToken = default);
+        Task UpdatePatientAsync(Patient patient, CancellationToken cancellationToken = default);
+        Task DeletePatientAsync(Patient patient, CancellationToken cancellationToken = default);
     }
 }

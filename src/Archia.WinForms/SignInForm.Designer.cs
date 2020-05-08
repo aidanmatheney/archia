@@ -50,7 +50,6 @@
             this.UsernameTextBox.Size = new System.Drawing.Size(439, 29);
             this.UsernameTextBox.TabIndex = 1;
             this.UsernameTextBox.TextChanged += new System.EventHandler(this.HandleCredentialsTextChanged);
-            this.UsernameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HandleCredentialsKeyDown);
             // 
             // PasswordTextBox
             // 
@@ -62,7 +61,6 @@
             this.PasswordTextBox.TabIndex = 3;
             this.PasswordTextBox.UseSystemPasswordChar = true;
             this.PasswordTextBox.TextChanged += new System.EventHandler(this.HandleCredentialsTextChanged);
-            this.PasswordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HandleCredentialsKeyDown);
             // 
             // UsernameLabel
             // 
@@ -169,6 +167,7 @@
             // 
             // SignInForm
             // 
+            this.AcceptButton = this.SignInButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(541, 185);

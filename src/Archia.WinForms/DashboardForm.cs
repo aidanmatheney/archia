@@ -1,13 +1,12 @@
 ﻿namespace Archia.WinForms
 {
     using System;
-    using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-    using System.Text;
     using System.Windows.Forms;
 
     using Archia.Utils;
+    using Archia.WinForms.UseCases;
 
     public partial class DashboardForm : Form
     {
@@ -16,6 +15,9 @@
 
         public DashboardForm(string username, ArchiaServiceProvider services)
         {
+            ThrowIf.Null(username, nameof(username));
+            ThrowIf.Null(services, nameof(services));
+
             _username = username;
             _services = services;
 
@@ -49,7 +51,10 @@
 
             void AddActions(params (string ActionName, Func<Form> CreateForm)[] actions)
             {
-                var ampersandLabelByActionName = AssignAccessKeys(actions.Select(action => action.ActionName).ToList());
+                var ampersandLabelByActionName = UiUtils.AssignAccessKeys
+                (
+                    actions.Select(action => action.ActionName).ToList()
+                );
                 foreach (var (actionName, createForm) in actions)
                 {
                     var ampersandLabel = ampersandLabelByActionName[actionName];
@@ -69,72 +74,5 @@
         }
 
         private void SetStatus(string status) => StatusLabel.Text = status;
-
-        private static IReadOnlyDictionary<string, string> AssignAccessKeys(IReadOnlyCollection<string> labels, IReadOnlyDictionary<int, int>? skipsByLabelIdx = null)
-        {
-            var skipsByLabelIdxMut = skipsByLabelIdx is null ? null : new Dictionary<int, int>(skipsByLabelIdx);
-
-            var ampersandIdxByLabelIdx = new int[labels.Count];
-            var usedAmpersandChars = new HashSet<char>(labels.Count);
-            var assignedLabelIdxs = new HashSet<int>(labels.Count);
-
-            int round = 0;
-            while (true)
-            {
-                var isRoundEmpty = true;
-
-                foreach (var (label, labelIdx) in labels.Index())
-                {
-                    if (assignedLabelIdxs.Contains(labelIdx))
-                        continue;
-
-                    if (!(skipsByLabelIdxMut is null) && skipsByLabelIdxMut.TryGetValue(labelIdx, out var skips) && skips > 0)
-                    {
-                        skipsByLabelIdxMut[labelIdx] = skips - 1;
-                        continue;
-                    }
-
-                    if (label.Length == 0)
-                        throw new ArgumentException("empty label", nameof(labels));
-
-                    if (round >= label.Length)
-                        continue;
-
-                    var c = char.ToLower(label[round]);
-                    isRoundEmpty = false;
-
-                    if (usedAmpersandChars.Contains(c))
-                        continue;
-
-                    ampersandIdxByLabelIdx[labelIdx] = round;
-                    usedAmpersandChars.Add(c);
-                    assignedLabelIdxs.Add(labelIdx);
-                }
-
-                if (isRoundEmpty)
-                    break;
-
-                round += 1;
-            }
-
-            var ampersandLabelByLabel = new Dictionary<string, string>(labels.Count);
-            foreach (var (label, labelIdx) in labels.Index())
-            {
-                if (assignedLabelIdxs.Contains(labelIdx))
-                {
-                    var ampersandLabelBuilder = new StringBuilder(label, label.Length + 1);
-                    var ampersandIdx = ampersandIdxByLabelIdx[labelIdx];
-                    ampersandLabelBuilder.Insert(ampersandIdx, '&');
-
-                    ampersandLabelByLabel.Add(label, ampersandLabelBuilder.ToString());
-                }
-                else
-                {
-                    ampersandLabelByLabel.Add(label, label);
-                }
-            }
-
-            return ampersandLabelByLabel;
-        }
     }
 }

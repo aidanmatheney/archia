@@ -3,6 +3,7 @@
     using System;
 
     using Archia.Data.Services;
+    using Archia.Utils;
 
     using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +15,8 @@
 
         public ArchiaServiceProvider(IServiceProvider services)
         {
+            ThrowIf.Null(services, nameof(services));
+
             _services = services;
         }
 

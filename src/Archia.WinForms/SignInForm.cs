@@ -3,12 +3,16 @@
     using System;
     using System.Windows.Forms;
 
+    using Archia.Utils;
+
     public partial class SignInForm : Form
     {
         private readonly ArchiaServiceProvider _services;
 
         public SignInForm(ArchiaServiceProvider services)
         {
+            ThrowIf.Null(services, nameof(services));
+
             _services = services;
 
             InitializeComponent();
@@ -52,15 +56,6 @@
             var hasPassword = PasswordTextBox.Text.Length > 0;
 
             SignInButton.Enabled = hasUsername && hasPassword;
-        }
-
-        private void HandleCredentialsKeyDown(object sender, KeyEventArgs e)
-        {
-            var hasUsername = UsernameTextBox.Text.Length > 0;
-            var hasPassword = PasswordTextBox.Text.Length > 0;
-
-            if (hasUsername && hasPassword && e.KeyCode == Keys.Enter)
-                SignIn();
         }
     }
 }

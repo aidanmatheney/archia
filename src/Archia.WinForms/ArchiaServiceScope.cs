@@ -2,6 +2,8 @@
 {
     using System;
 
+    using Archia.Utils;
+
     using Microsoft.Extensions.DependencyInjection;
 
     public sealed class ArchiaServiceScope : IServiceScope
@@ -10,6 +12,8 @@
 
         public ArchiaServiceScope(IServiceScope scope)
         {
+            ThrowIf.Null(scope, nameof(scope));
+
             _scope = scope;
             ServiceProvider = new ArchiaServiceProvider(_scope.ServiceProvider);
         }

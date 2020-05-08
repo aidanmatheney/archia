@@ -1,11 +1,12 @@
 ﻿namespace Archia.WebApi.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
-    using Archia.Entities;
     using Archia.Data.Services;
+    using Archia.Entities;
     using Archia.Utils;
 
     using Microsoft.AspNetCore.Mvc;
@@ -30,22 +31,12 @@
         }
 
         /// <summary>
-        ///     Create a new patient.
-        /// </summary>
-        [HttpPost]
-        public async Task<int> CreatePatient(Patient patient, CancellationToken cancellationToken)
-        {
-            var id = await _patientService.CreatePatientAsync(patient, cancellationToken);
-            return id;
-        }
-
-        /// <summary>
         ///     Get all patients.
         /// </summary>
         [HttpGet]
         public async Task<IEnumerable<Patient>> GetPatients(CancellationToken cancellationToken)
         {
-            var patients = await _patientService.GetPatientsAsync(cancellationToken);
+            var patients = await _patientService.GetPatientsAsync(cancellationToken).ConfigureAwait(false);
             return patients;
         }
 
@@ -53,28 +44,40 @@
         ///     Get a patient by ID.
         /// </summary>
         [HttpGet("{id}")]
-        public async Task<Patient> GetPatient(int id, CancellationToken cancellationToken)
+        public async Task<Patient> GetPatient(Guid id, CancellationToken cancellationToken)
         {
-            var patient = await _patientService.GetPatientAsync(id, cancellationToken);
+            var patient = await _patientService.FindPatientByIdAsync(id, cancellationToken).ConfigureAwait(false);
             return patient;
+        }
+
+        /// <summary>
+        ///     Create a new patient.
+        /// </summary>
+        [HttpPost]
+        public async Task CreatePatient(Patient patient, CancellationToken cancellationToken)
+        {
+            patient.Id = Guid.NewGuid();
+            await _patientService.CreatePatientAsync(patient, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
         ///     Update a patient by ID
         /// </summary>
         [HttpPut("{id}")]
-        public async Task UpdatePatient(int id, Patient patient, CancellationToken cancellationToken)
+        public async Task UpdatePatient(Guid id, Patient patient, CancellationToken cancellationToken)
         {
-            await _patientService.UpdatePatientAsync(id, patient, cancellationToken);
+            patient.Id = id;
+            await _patientService.UpdatePatientAsync(patient, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
         ///     Delete a patient by ID.
         /// </summary>
-        [HttpDelete]
-        public async Task DeletePatient(int id, CancellationToken cancellationToken)
+        [HttpDelete("{id}")]
+        public async Task DeletePatient(Guid id, CancellationToken cancellationToken)
         {
-            await _patientService.DeletePatientAsync(id, cancellationToken);
+            var patient = new Patient { Id = id };
+            await _patientService.DeletePatientAsync(patient, cancellationToken).ConfigureAwait(false);
         }
     }
 }

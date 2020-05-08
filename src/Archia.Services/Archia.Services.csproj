@@ -9,15 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.35" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.3" />
-    <PackageReference Include="MySqlConnector" Version="0.66.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Archia.Data.Naming\Archia.Data.Naming.csproj" />
+    <ProjectReference Include="..\Archia.Data.Services\Archia.Data.Services.csproj" />
     <ProjectReference Include="..\Archia.Entities\Archia.Entities.csproj" />
-    <ProjectReference Include="..\Archia.Data\Archia.Data.csproj" />
     <ProjectReference Include="..\Archia.Utils\Archia.Utils.csproj" />
   </ItemGroup>
 

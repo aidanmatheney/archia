@@ -1,4 +1,4 @@
-﻿namespace Archia.WinForms
+﻿namespace Archia.WinForms.UseCases
 {
     partial class ExaminePatientForm
     {
@@ -40,7 +40,7 @@
             this.MainPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ButtonsPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SubmitButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CancelButton_ = new System.Windows.Forms.Button();
             this.FieldsPanel.SuspendLayout();
             this.MainPanel.SuspendLayout();
             this.ButtonsPanel.SuspendLayout();
@@ -179,7 +179,7 @@
             this.ButtonsPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.ButtonsPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.ButtonsPanel.Controls.Add(this.SubmitButton, 1, 0);
-            this.ButtonsPanel.Controls.Add(this.CancelButton, 2, 0);
+            this.ButtonsPanel.Controls.Add(this.CancelButton_, 2, 0);
             this.ButtonsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ButtonsPanel.Location = new System.Drawing.Point(3, 223);
             this.ButtonsPanel.Name = "ButtonsPanel";
@@ -200,22 +200,24 @@
             this.SubmitButton.UseVisualStyleBackColor = true;
             this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
             // 
-            // CancelButton
+            // CancelButton_
             // 
-            this.CancelButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CancelButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.CancelButton.Location = new System.Drawing.Point(716, 3);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 44);
-            this.CancelButton.TabIndex = 1;
-            this.CancelButton.Text = "&Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CancelButton_.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CancelButton_.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.CancelButton_.Location = new System.Drawing.Point(716, 3);
+            this.CancelButton_.Name = "CancelButton_";
+            this.CancelButton_.Size = new System.Drawing.Size(75, 44);
+            this.CancelButton_.TabIndex = 1;
+            this.CancelButton_.Text = "&Cancel";
+            this.CancelButton_.UseVisualStyleBackColor = true;
+            this.CancelButton_.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // ExaminePatientForm
             // 
+            this.AcceptButton = this.SubmitButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.CancelButton_;
             this.ClientSize = new System.Drawing.Size(800, 276);
             this.Controls.Add(this.MainPanel);
             this.Name = "ExaminePatientForm";
@@ -236,7 +238,7 @@
         private System.Windows.Forms.TableLayoutPanel MainPanel;
         private System.Windows.Forms.TableLayoutPanel ButtonsPanel;
         private System.Windows.Forms.Button SubmitButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CancelButton_;
         private System.Windows.Forms.Label HealthAssessmentLabel;
         private System.Windows.Forms.Label DateLabel;
         private System.Windows.Forms.Label SymptomsLabel;

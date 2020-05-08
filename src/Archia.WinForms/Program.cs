@@ -1,6 +1,7 @@
 namespace Archia.WinForms
 {
     using System;
+    using System.Diagnostics;
     using System.Windows.Forms;
 
     using Archia.Data.Migrations;
@@ -15,14 +16,16 @@ namespace Archia.WinForms
         ///     The main entry point for the application.
         /// </summary>
         [STAThread]
-        private static void Main()
+        private static void Main(string[] args)
         {
+            Debug.Assert(!(args is null));
+
             CheckForMigrations();
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ArchiaAppContext());
+            Application.Run(new ArchiaAppContext(args));
         }
 
         private static void CheckForMigrations()
