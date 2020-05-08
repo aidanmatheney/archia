@@ -77,7 +77,7 @@
             this.GreetingPanel.RowCount = 1;
             this.GreetingPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.GreetingPanel.Size = new System.Drawing.Size(733, 40);
-            this.GreetingPanel.TabIndex = 1;
+            this.GreetingPanel.TabIndex = 0;
             // 
             // HelloLabel
             // 
@@ -87,7 +87,7 @@
             this.HelloLabel.Location = new System.Drawing.Point(607, 0);
             this.HelloLabel.Name = "HelloLabel";
             this.HelloLabel.Size = new System.Drawing.Size(43, 40);
-            this.HelloLabel.TabIndex = 0;
+            this.HelloLabel.TabIndex = 1;
             this.HelloLabel.Text = "Hello,";
             this.HelloLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -99,7 +99,7 @@
             this.UsernameLabel.Location = new System.Drawing.Point(656, 0);
             this.UsernameLabel.Name = "UsernameLabel";
             this.UsernameLabel.Size = new System.Drawing.Size(74, 40);
-            this.UsernameLabel.TabIndex = 0;
+            this.UsernameLabel.TabIndex = 2;
             this.UsernameLabel.Text = "username";
             this.UsernameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -111,7 +111,7 @@
             this.DashboardLabel.Location = new System.Drawing.Point(3, 0);
             this.DashboardLabel.Name = "DashboardLabel";
             this.DashboardLabel.Size = new System.Drawing.Size(598, 40);
-            this.DashboardLabel.TabIndex = 1;
+            this.DashboardLabel.TabIndex = 0;
             this.DashboardLabel.Text = "Dashboard";
             this.DashboardLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -131,8 +131,8 @@
             this.ActionsLabel.Location = new System.Drawing.Point(3, 56);
             this.ActionsLabel.Name = "ActionsLabel";
             this.ActionsLabel.Size = new System.Drawing.Size(733, 25);
-            this.ActionsLabel.TabIndex = 3;
-            this.ActionsLabel.Text = "Actions:";
+            this.ActionsLabel.TabIndex = 1;
+            this.ActionsLabel.Text = "&Actions:";
             this.ActionsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // StatusStrip

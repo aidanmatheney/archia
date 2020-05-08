@@ -1,12 +1,17 @@
 ﻿namespace Archia.WinForms
 {
     using System;
+    using System.Data;
     using System.Windows.Forms;
-
+    using Archia.Data.Services;
     using Microsoft.Extensions.DependencyInjection;
+
+    using MySql.Data.MySqlClient;
 
     public sealed class ArchiaAppContext : ApplicationContext
     {
+        private const string ConnectionStringEnvironmentVariableName = "ARCHIA_WEBAPI_CONNECTIONSTRING";
+
         public ArchiaAppContext()
         {
             var services = CreateServiceProvider();
@@ -22,11 +27,28 @@
             ExitThread();
         }
 
-        private static IServiceProvider CreateServiceProvider()
+        private static ArchiaServiceProvider CreateServiceProvider()
         {
             var services = new ServiceCollection();
 
-            return services.BuildServiceProvider();
+            var baseConnectionString = Environment.GetEnvironmentVariable(ConnectionStringEnvironmentVariableName);
+            if (baseConnectionString is null)
+                throw new InvalidOperationException($"{ConnectionStringEnvironmentVariableName} environment variable is not set");
+
+            var connectionString = new MySqlConnectionStringBuilder(baseConnectionString)
+            {
+                AllowUserVariables = true,
+                AllowLoadLocalInfile = true
+            };
+
+            services.AddLogging();
+
+            services.AddScoped(serviceProvider => new MySqlConnection(connectionString.ToString()));
+            services.AddScoped<IDbConnection>(serviceProvider => serviceProvider.GetRequiredService<MySqlConnection>());
+
+            services.AddScoped<IPatientService, PatientService>();
+
+            return new ArchiaServiceProvider(services.BuildServiceProvider());
         }
     }
 }

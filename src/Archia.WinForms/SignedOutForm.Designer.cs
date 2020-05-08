@@ -36,7 +36,7 @@
             this.MainPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SignInLabel = new System.Windows.Forms.Label();
             this.SignInButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ProductLabel = new System.Windows.Forms.Label();
             this.CredentialsPanel.SuspendLayout();
             this.MainPanel.SuspendLayout();
             this.SuspendLayout();
@@ -73,7 +73,7 @@
             this.UsernameLabel.Name = "UsernameLabel";
             this.UsernameLabel.Size = new System.Drawing.Size(84, 42);
             this.UsernameLabel.TabIndex = 0;
-            this.UsernameLabel.Text = "Username:";
+            this.UsernameLabel.Text = "&Username:";
             this.UsernameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // PasswordLabel
@@ -85,7 +85,7 @@
             this.PasswordLabel.Name = "PasswordLabel";
             this.PasswordLabel.Size = new System.Drawing.Size(84, 42);
             this.PasswordLabel.TabIndex = 2;
-            this.PasswordLabel.Text = "Password:";
+            this.PasswordLabel.Text = "&Password:";
             this.PasswordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // CredentialsPanel
@@ -106,7 +106,7 @@
             this.CredentialsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.CredentialsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.CredentialsPanel.Size = new System.Drawing.Size(535, 84);
-            this.CredentialsPanel.TabIndex = 0;
+            this.CredentialsPanel.TabIndex = 2;
             // 
             // MainPanel
             // 
@@ -115,7 +115,7 @@
             this.MainPanel.Controls.Add(this.CredentialsPanel, 0, 2);
             this.MainPanel.Controls.Add(this.SignInLabel, 0, 1);
             this.MainPanel.Controls.Add(this.SignInButton, 0, 4);
-            this.MainPanel.Controls.Add(this.label1, 0, 0);
+            this.MainPanel.Controls.Add(this.ProductLabel, 0, 0);
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainPanel.Location = new System.Drawing.Point(0, 0);
             this.MainPanel.Name = "MainPanel";
@@ -126,7 +126,7 @@
             this.MainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.MainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.MainPanel.Size = new System.Drawing.Size(541, 185);
-            this.MainPanel.TabIndex = 1;
+            this.MainPanel.TabIndex = 0;
             // 
             // SignInLabel
             // 
@@ -150,22 +150,22 @@
             this.SignInButton.Location = new System.Drawing.Point(463, 150);
             this.SignInButton.Name = "SignInButton";
             this.SignInButton.Size = new System.Drawing.Size(75, 32);
-            this.SignInButton.TabIndex = 2;
-            this.SignInButton.Text = "Sign In";
+            this.SignInButton.TabIndex = 3;
+            this.SignInButton.Text = "&Sign In";
             this.SignInButton.UseVisualStyleBackColor = true;
             this.SignInButton.Click += new System.EventHandler(this.SignInButton_Click);
             // 
-            // label1
+            // ProductLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(535, 21);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Archia Electronic Medical Records System";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ProductLabel.AutoSize = true;
+            this.ProductLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ProductLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ProductLabel.Location = new System.Drawing.Point(3, 0);
+            this.ProductLabel.Name = "ProductLabel";
+            this.ProductLabel.Size = new System.Drawing.Size(535, 21);
+            this.ProductLabel.TabIndex = 0;
+            this.ProductLabel.Text = "Archia Electronic Medical Records System";
+            this.ProductLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SignedOutForm
             // 
@@ -193,6 +193,6 @@
         private System.Windows.Forms.TableLayoutPanel MainPanel;
         private System.Windows.Forms.Label SignInLabel;
         private System.Windows.Forms.Button SignInButton;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label ProductLabel;
     }
 }

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-namespace Archia.WinForms
+﻿namespace Archia.WinForms
 {
+    using System;
+    using System.Windows.Forms;
+
     public partial class SignedOutForm : Form
     {
-        private readonly IServiceProvider _services;
+        private readonly ArchiaServiceProvider _services;
 
-        public SignedOutForm(IServiceProvider services)
+        public SignedOutForm(ArchiaServiceProvider services)
         {
             _services = services;
 

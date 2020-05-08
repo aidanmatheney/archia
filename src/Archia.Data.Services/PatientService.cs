@@ -1,37 +1,23 @@
 ﻿namespace Archia.Data.Services
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Threading;
     using System.Threading.Tasks;
 
     using Archia.Entities;
-    using Archia.Utils;
 
-    using Dapper;
+    using Microsoft.Extensions.Logging;
 
-    public sealed class PatientService : IPatientService
+    using MySql.Data.MySqlClient;
+
+    public sealed class PatientService : DbServiceBase, IPatientService
     {
-        private readonly IDbConnection _dbConnection;
-
-        public PatientService(IDbConnection dbConnection)
-        {
-            ThrowIf.Null(dbConnection, nameof(dbConnection));
-
-            _dbConnection = dbConnection;
-        }
+        public PatientService(MySqlConnection dbConnection, ILogger<PatientService> logger) : base(dbConnection, logger) { }
 
         public async Task<int> CreatePatientAsync(Patient patient, CancellationToken cancellationToken = default)
         {
-            var parameters = new DynamicParameters();
-            parameters.Add("id", dbType: DbType.Int32, direction: ParameterDirection.Output);
-            parameters.Add("firstName", patient.FirstName);
-            parameters.Add("middleName", patient.MiddleName);
-            parameters.Add("lastName", patient.LastName);
-
-            await _dbConnection.ExecuteAsync(new CommandDefinition
+            return await ExecuteScalarAsync<int>
             (
-                commandText:
                 @"
 INSERT INTO Patient
     (
@@ -44,20 +30,22 @@ INSERT INTO Patient
         (@firstName, @middleName, @lastName)
 ;
 
-SET @id = LAST_INSERT_ID();
+SELECT LAST_INSERT_ID();
                 ",
-                parameters: parameters,
-                cancellationToken: cancellationToken
-            )).ConfigureAwait(false);
-
-            return parameters.Get<int>("id");
+                new
+                {
+                    firstName = patient.FirstName,
+                    middleName = patient.MiddleName,
+                    lastName = patient.LastName
+                },
+                cancellationToken
+            ).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<Patient>> GetPatientsAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbConnection.QueryAsync<Patient>(new CommandDefinition
+            return await QueryAsync<Patient>
             (
-                commandText:
                 @"
 SELECT
     Id,
@@ -69,14 +57,13 @@ SELECT
 ;
                 ",
                 cancellationToken: cancellationToken
-            )).ConfigureAwait(false);
+            ).ConfigureAwait(false);
         }
 
         public async Task<Patient> GetPatientAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await _dbConnection.QuerySingleOrDefaultAsync<Patient>(new CommandDefinition
+            return await QuerySingleOrDefaultAsync<Patient>
             (
-                commandText:
                 @"
 SELECT
     Id,
@@ -89,19 +76,15 @@ SELECT
     WHERE Id = @id
 ;
                 ",
-                parameters: new
-                {
-                    id
-                },
-                cancellationToken: cancellationToken
-            )).ConfigureAwait(false);
+                new { id },
+                cancellationToken
+            ).ConfigureAwait(false);
         }
 
         public async Task UpdatePatientAsync(int id, Patient patient, CancellationToken cancellationToken = default)
         {
-            await _dbConnection.ExecuteAsync(new CommandDefinition
+            await ExecuteAsync
             (
-                commandText:
                 @"
 UPDATE Patient SET
     FirstName = @firstName,
@@ -111,33 +94,29 @@ UPDATE Patient SET
     WHERE Id = @id
 ;
                 ",
-                parameters: new
+                new
                 {
                     id,
                     firstName = patient.FirstName,
                     middleName = patient.MiddleName,
                     lastName = patient.LastName
                 },
-                cancellationToken: cancellationToken
-            )).ConfigureAwait(false);
+                cancellationToken
+            ).ConfigureAwait(false);
         }
 
         public async Task DeletePatientAsync(int id, CancellationToken cancellationToken = default)
         {
-            await _dbConnection.ExecuteAsync(new CommandDefinition
+            await ExecuteAsync
             (
-                commandText:
                 @"
 DELETE FROM Patient
     WHERE Id = @id
 ;
                 ",
-                parameters: new
-                {
-                    id
-                },
-                cancellationToken: cancellationToken
-            )).ConfigureAwait(false);
+                new { id },
+                cancellationToken
+            ).ConfigureAwait(false);
         }
     }
 }
