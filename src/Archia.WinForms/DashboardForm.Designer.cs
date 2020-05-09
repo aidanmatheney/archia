@@ -59,7 +59,7 @@
             this.MainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.MainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.MainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MainPanel.Size = new System.Drawing.Size(739, 393);
+            this.MainPanel.Size = new System.Drawing.Size(708, 495);
             this.MainPanel.TabIndex = 0;
             // 
             // GreetingPanel
@@ -76,7 +76,7 @@
             this.GreetingPanel.Name = "GreetingPanel";
             this.GreetingPanel.RowCount = 1;
             this.GreetingPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.GreetingPanel.Size = new System.Drawing.Size(733, 40);
+            this.GreetingPanel.Size = new System.Drawing.Size(702, 40);
             this.GreetingPanel.TabIndex = 0;
             // 
             // HelloLabel
@@ -84,7 +84,7 @@
             this.HelloLabel.AutoSize = true;
             this.HelloLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.HelloLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.HelloLabel.Location = new System.Drawing.Point(607, 0);
+            this.HelloLabel.Location = new System.Drawing.Point(576, 0);
             this.HelloLabel.Name = "HelloLabel";
             this.HelloLabel.Size = new System.Drawing.Size(43, 40);
             this.HelloLabel.TabIndex = 1;
@@ -96,7 +96,7 @@
             this.UsernameLabel.AutoSize = true;
             this.UsernameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.UsernameLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.UsernameLabel.Location = new System.Drawing.Point(656, 0);
+            this.UsernameLabel.Location = new System.Drawing.Point(625, 0);
             this.UsernameLabel.Name = "UsernameLabel";
             this.UsernameLabel.Size = new System.Drawing.Size(74, 40);
             this.UsernameLabel.TabIndex = 2;
@@ -110,7 +110,7 @@
             this.DashboardLabel.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.DashboardLabel.Location = new System.Drawing.Point(3, 0);
             this.DashboardLabel.Name = "DashboardLabel";
-            this.DashboardLabel.Size = new System.Drawing.Size(598, 40);
+            this.DashboardLabel.Size = new System.Drawing.Size(567, 40);
             this.DashboardLabel.TabIndex = 0;
             this.DashboardLabel.Text = "Dashboard";
             this.DashboardLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -120,7 +120,7 @@
             this.ActionsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ActionsPanel.Location = new System.Drawing.Point(3, 84);
             this.ActionsPanel.Name = "ActionsPanel";
-            this.ActionsPanel.Size = new System.Drawing.Size(733, 306);
+            this.ActionsPanel.Size = new System.Drawing.Size(702, 408);
             this.ActionsPanel.TabIndex = 2;
             // 
             // ActionsLabel
@@ -130,7 +130,7 @@
             this.ActionsLabel.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ActionsLabel.Location = new System.Drawing.Point(3, 56);
             this.ActionsLabel.Name = "ActionsLabel";
-            this.ActionsLabel.Size = new System.Drawing.Size(733, 25);
+            this.ActionsLabel.Size = new System.Drawing.Size(702, 25);
             this.ActionsLabel.TabIndex = 1;
             this.ActionsLabel.Text = "&Actions:";
             this.ActionsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -139,9 +139,9 @@
             // 
             this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StatusLabel});
-            this.StatusStrip.Location = new System.Drawing.Point(0, 396);
+            this.StatusStrip.Location = new System.Drawing.Point(0, 498);
             this.StatusStrip.Name = "StatusStrip";
-            this.StatusStrip.Size = new System.Drawing.Size(739, 22);
+            this.StatusStrip.Size = new System.Drawing.Size(708, 22);
             this.StatusStrip.TabIndex = 1;
             // 
             // StatusLabel
@@ -154,7 +154,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(739, 418);
+            this.ClientSize = new System.Drawing.Size(708, 520);
             this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.MainPanel);
             this.Name = "DashboardForm";

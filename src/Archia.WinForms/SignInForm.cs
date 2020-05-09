@@ -34,12 +34,14 @@
 
             if (username.Equals("aidan", StringComparison.OrdinalIgnoreCase) && password.Equals("password1"))
             {
+                _services.UserContext.SignIn(username);
+
                 UsernameTextBox.ResetText();
                 PasswordTextBox.ResetText();
 
                 Hide();
 
-                var dashboardForm = new DashboardForm(username, _services);
+                var dashboardForm = new DashboardForm(_services);
                 dashboardForm.ShowDialog();
 
                 Show();

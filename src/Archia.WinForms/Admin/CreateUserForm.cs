@@ -6,15 +6,14 @@
 
     public partial class CreateUserForm : Form
     {
-        private readonly string _username;
         private readonly ArchiaServiceProvider _services;
 
-        public CreateUserForm(string username, ArchiaServiceProvider services)
+        public CreateUserForm(ArchiaServiceProvider services)
         {
-            ThrowIf.Null(username, nameof(username));
             ThrowIf.Null(services, nameof(services));
 
-            _username = username;
+            services.UserContext.EnsureSignedIn();
+
             _services = services;
 
             InitializeComponent();

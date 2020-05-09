@@ -8,15 +8,14 @@
 
     public partial class ExaminePatientForm : Form
     {
-        private readonly string _username;
         private readonly ArchiaServiceProvider _services;
 
-        public ExaminePatientForm(string username, ArchiaServiceProvider services)
+        public ExaminePatientForm(ArchiaServiceProvider services)
         {
-            ThrowIf.Null(username, nameof(username));
             ThrowIf.Null(services, nameof(services));
 
-            _username = username;
+            services.UserContext.EnsureSignedIn();
+
             _services = services;
 
             InitializeComponent();

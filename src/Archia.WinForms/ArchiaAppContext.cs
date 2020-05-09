@@ -98,6 +98,8 @@
             services.AddScoped<IPatientService, PatientService>();
 
             services.AddScoped<ILogService, LogService>();
+
+            services.AddSingleton<ArchiaUserContext>();
         }
 
         public static void ConfigureLogging(HostBuilderContext context, ILoggingBuilder loggingBuilder)

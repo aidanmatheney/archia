@@ -12,13 +12,12 @@
     {
         private readonly IProgress<bool> _startStopProgress;
 
-        public ArchiaAppService(IHostApplicationLifetime appLifetime, ArchiaServiceProvider services)
+        public ArchiaAppService(ArchiaServiceProvider services)
         {
-            ThrowIf.Null(appLifetime, nameof(appLifetime));
             ThrowIf.Null(services, nameof(services));
 
             var signInForm = new SignInForm(services);
-            signInForm.FormClosed += (sender, e) => appLifetime.StopApplication();
+            signInForm.FormClosed += (sender, e) => services.AppLifetime.StopApplication();
 
             _startStopProgress = new Progress<bool>(start =>
             {

@@ -62,13 +62,16 @@
                     }
 
                     if (label.Length == 0)
-                        throw new ArgumentException("empty label", nameof(labels));
+                        throw new ArgumentException("Empty label", nameof(labels));
 
                     if (round >= label.Length)
                         continue;
 
-                    var c = char.ToLower(label[round]);
                     isRoundEmpty = false;
+
+                    var c = char.ToLower(label[round]);
+                    if (c < 'a' || c > 'z')
+                        continue;
 
                     if (usedAmpersandChars.Contains(c))
                         continue;
