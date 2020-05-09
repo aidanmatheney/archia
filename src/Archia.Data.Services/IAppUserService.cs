@@ -1,5 +1,6 @@
 ﻿namespace Archia.Data.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
@@ -10,11 +11,11 @@
     {
         #region IUserStore
 
+        Task<AppUser?> FindUserByIdAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<AppUser?> FindUserByUserNameAsync(string normalizedUserName, CancellationToken cancellationToken = default);
         Task CreateUserAsync(AppUser user, CancellationToken cancellationToken = default);
         Task UpdateUserAsync(AppUser user, CancellationToken cancellationToken = default);
         Task DeleteUserAsync(AppUser user, CancellationToken cancellationToken = default);
-        Task<AppUser?> FindUserByIdAsync(string id, CancellationToken cancellationToken = default);
-        Task<AppUser?> FindUserByUserNameAsync(string normalizedUserName, CancellationToken cancellationToken = default);
 
         #endregion
 

@@ -106,6 +106,8 @@ namespace Archia.Entities
         /// <remarks>A value in the past means the user is not locked out.</remarks>
         public DateTimeOffset? LockoutEnd { get; set; }
 
+        public bool IsLockedOut => LockoutEnd == DateTimeOffset.MaxValue;
+
         /// <summary>
         /// Gets or sets a flag indicating if the user could be locked out.
         /// </summary>

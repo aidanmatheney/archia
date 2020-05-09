@@ -45,13 +45,13 @@
         {
             services.AddHostedService<ArchiaAppService>();
 
-            services.AddScoped(serviceProvider => new ArchiaServiceProvider(serviceProvider));
+            services.AddSingleton(serviceProvider => new ArchiaServiceProvider(serviceProvider));
 
             services
                 .AddIdentityCore<AppUser>(options =>
                 {
                     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-                    options.User.RequireUniqueEmail = true;
+                    options.User.RequireUniqueEmail = false; // Don't use email, only username
 
                     options.Password.RequiredLength = 8;
                     options.Password.RequiredUniqueChars = 3;
@@ -77,6 +77,8 @@
                 .AddSignInManager()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthentication();
+
             services.AddLogging();
 
             var baseConnectionString = Environment.GetEnvironmentVariable(ConnectionStringEnvironmentVariableName);
@@ -100,6 +102,9 @@
             services.AddScoped<ILogService, LogService>();
 
             services.AddSingleton<ArchiaUserContext>();
+
+            services.AddSingleton(context.Configuration.GetSection(nameof(DbSeederSettings)).Get<DbSeederSettings>());
+            services.AddScoped<DbSeeder>();
         }
 
         public static void ConfigureLogging(HostBuilderContext context, ILoggingBuilder loggingBuilder)

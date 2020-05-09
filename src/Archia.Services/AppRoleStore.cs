@@ -9,6 +9,7 @@
     using Archia.Data.Services;
     using Archia.Entities;
     using Archia.Utils;
+    using System;
 
     public sealed class AppRoleStore : IRoleStore<AppRole>
     {
@@ -36,10 +37,10 @@
             return Task.FromResult(role.Name);
         }
 
-        public Task SetRoleNameAsync(AppRole role, string? roleName, CancellationToken cancellationToken = default)
+        public Task SetRoleNameAsync(AppRole role, string? name, CancellationToken cancellationToken = default)
         {
             ThrowIf.Null(role, nameof(role));
-            role.Name = roleName;
+            role.Name = name;
             return Task.CompletedTask;
         }
 
@@ -57,19 +58,19 @@
         }
 
 #pragma warning disable CS8613 // Nullability of reference types in return type doesn't match implicitly implemented member.
-        public async Task<AppRole?> FindByIdAsync(string roleId, CancellationToken cancellationToken = default)
+        public async Task<AppRole?> FindByIdAsync(string id, CancellationToken cancellationToken = default)
 #pragma warning restore CS8613 // Nullability of reference types in return type doesn't match implicitly implemented member.
         {
-            ThrowIf.Null(roleId, nameof(roleId));
-            return await _roleService.FindRoleByIdAsync(roleId, cancellationToken).ConfigureAwait(false);
+            ThrowIf.Null(id, nameof(id));
+            return await _roleService.FindRoleByIdAsync(new Guid(id), cancellationToken).ConfigureAwait(false);
         }
 
 #pragma warning disable CS8613 // Nullability of reference types in return type doesn't match implicitly implemented member.
-        public async Task<AppRole?> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken = default)
+        public async Task<AppRole?> FindByNameAsync(string normalizedName, CancellationToken cancellationToken = default)
 #pragma warning restore CS8613 // Nullability of reference types in return type doesn't match implicitly implemented member.
         {
-            ThrowIf.Null(normalizedRoleName, nameof(normalizedRoleName));
-            return await _roleService.FindRoleByNameAsync(normalizedRoleName, cancellationToken).ConfigureAwait(false);
+            ThrowIf.Null(normalizedName, nameof(normalizedName));
+            return await _roleService.FindRoleByNameAsync(normalizedName, cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<IdentityResult> CreateAsync(AppRole role, CancellationToken cancellationToken = default)

@@ -1,5 +1,6 @@
 ﻿namespace Archia.Data.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
@@ -17,6 +18,72 @@
         public AppUserService(MySqlConnection dbConnection, ILogger<AppUserService> logger) : base(dbConnection, logger) { }
 
         #region IUserStore
+
+        public async Task<AppUser?> FindUserByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            return await QuerySingleOrDefaultAsync<AppUser?>
+            (
+                $@"
+SELECT
+    Id,
+    UserName,
+    NormalizedUserName,
+    Email,
+    NormalizedEmail,
+    EmailConfirmed,
+    PasswordHash,
+    SecurityStamp,
+    ConcurrencyStamp,
+    PhoneNumber,
+    PhoneNumberConfirmed,
+    TwoFactorEnabled,
+    LockoutEnd,
+    LockoutEnabled,
+    AccessFailedCount,
+    AuthenticatorKey
+
+    FROM {DbTable.User}
+    WHERE Id = @id
+;
+                ",
+                new { id },
+                cancellationToken
+            ).ConfigureAwait(false);
+        }
+
+        public async Task<AppUser?> FindUserByUserNameAsync(string normalizedUserName, CancellationToken cancellationToken = default)
+        {
+            ThrowIf.Null(normalizedUserName, nameof(normalizedUserName));
+
+            return await QuerySingleOrDefaultAsync<AppUser?>
+            (
+                $@"
+SELECT
+    Id,
+    UserName,
+    NormalizedUserName,
+    Email,
+    NormalizedEmail,
+    EmailConfirmed,
+    PasswordHash,
+    SecurityStamp,
+    ConcurrencyStamp,
+    PhoneNumber,
+    PhoneNumberConfirmed,
+    TwoFactorEnabled,
+    LockoutEnd,
+    LockoutEnabled,
+    AccessFailedCount,
+    AuthenticatorKey
+
+    FROM {DbTable.User}
+    WHERE NormalizedUserName = @normalizedUserName
+;
+                ",
+                new { normalizedUserName },
+                cancellationToken
+            ).ConfigureAwait(false);
+        }
 
         public async Task CreateUserAsync(AppUser user, CancellationToken cancellationToken = default)
         {
@@ -151,74 +218,6 @@ DELETE
             ).ConfigureAwait(false);
         }
 
-        public async Task<AppUser?> FindUserByIdAsync(string id, CancellationToken cancellationToken = default)
-        {
-            ThrowIf.Null(id, nameof(id));
-
-            return await QuerySingleOrDefaultAsync<AppUser?>
-            (
-                $@"
-SELECT
-    Id,
-    UserName,
-    NormalizedUserName,
-    Email,
-    NormalizedEmail,
-    EmailConfirmed,
-    PasswordHash,
-    SecurityStamp,
-    ConcurrencyStamp,
-    PhoneNumber,
-    PhoneNumberConfirmed,
-    TwoFactorEnabled,
-    LockoutEnd,
-    LockoutEnabled,
-    AccessFailedCount,
-    AuthenticatorKey
-
-    FROM {DbTable.User}
-    WHERE Id = @id
-;
-                ",
-                new { id },
-                cancellationToken
-            ).ConfigureAwait(false);
-        }
-
-        public async Task<AppUser?> FindUserByUserNameAsync(string normalizedUserName, CancellationToken cancellationToken = default)
-        {
-            ThrowIf.Null(normalizedUserName, nameof(normalizedUserName));
-
-            return await QuerySingleOrDefaultAsync<AppUser?>
-            (
-                $@"
-SELECT
-    Id,
-    UserName,
-    NormalizedUserName,
-    Email,
-    NormalizedEmail,
-    EmailConfirmed,
-    PasswordHash,
-    SecurityStamp,
-    ConcurrencyStamp,
-    PhoneNumber,
-    PhoneNumberConfirmed,
-    TwoFactorEnabled,
-    LockoutEnd,
-    LockoutEnabled,
-    AccessFailedCount,
-    AuthenticatorKey
-
-    FROM {DbTable.User}
-    WHERE NormalizedUserName = @normalizedUserName
-;
-                ",
-                new { normalizedUserName },
-                cancellationToken
-            ).ConfigureAwait(false);
-        }
-
         #endregion
 
         #region IUserEmailStore
@@ -269,26 +268,18 @@ SELECT
             await ExecuteAsync
             (
                 $@"
-IF NOT EXISTS(SELECT *
-    FROM {DbTable.UserRole} AS userRole
-    JOIN {DbTable.Role} AS role ON
-        role.Id = userRole.RoleId
+INSERT INTO {DbTable.UserRole}(
+    UserId,
+    RoleId
+) SELECT
+    @userId,
+    role.Id
 
-    WHERE
-        userRole.UserId = @userId
-        AND role.NormalizedName = @normalizedRoleName
-) BEGIN;
-    INSERT INTO {DbTable.UserRole}(
-        UserId,
-        RoleId
-    ) SELECT
-        @userId,
-        role.Id
+    FROM {DbTable.Role} AS role
+    WHERE role.NormalizedName = @normalizedRoleName
 
-        FROM {DbTable.Role} AS role
-        WHERE role.NormalizedName = @normalizedRoleName
-    ;
-END;
+    ON DUPLICATE KEY UPDATE RoleId = RoleId
+;
                 ",
                 new
                 {

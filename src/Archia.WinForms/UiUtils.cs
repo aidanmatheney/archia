@@ -2,10 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Windows.Forms;
 
     using Archia.Utils;
+    using Microsoft.AspNetCore.Identity;
 
     public static class UiUtils
     {
@@ -52,6 +54,22 @@
         /// <param name="caption">The text to display in the title bar of the message box.</param>
         public static void ErrorMessageBox(string text, string caption = "Error")
             => MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        /// <summary>
+        /// Displays an exception message box with specified text and caption.
+        /// </summary>
+        /// <param name="ex">The exception to display in the message box.</param>
+        /// <param name="caption">The text to display in the title bar of the message box.</param>
+        public static void ExceptionMessageBox(Exception ex, string caption = "Error")
+            => ErrorMessageBox(ex.ToString(), caption);
+
+        /// <summary>
+        /// Displays a <see cref="IdentityResult"/> message box with specified text and caption.
+        /// </summary>
+        /// <param name="result">The <see cref="IdentityResult"/> whose errors to display in the message box.</param>
+        /// <param name="caption">The text to display in the title bar of the message box.</param>
+        public static void IdentityResultMessageBox(IdentityResult result, string caption = "Error")
+            => ErrorMessageBox(string.Join(Environment.NewLine, result.Errors.Select(error => error.Description)), caption);
 
         /// <summary>
         /// Displays a confirmation message box with specified text and caption.

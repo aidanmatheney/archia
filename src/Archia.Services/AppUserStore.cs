@@ -78,7 +78,7 @@
 #pragma warning restore CS8613 // Nullability of reference types in return type doesn't match implicitly implemented member.
         {
             ThrowIf.Null(id, nameof(id));
-            return await _userService.FindUserByIdAsync(id, cancellationToken).ConfigureAwait(false);
+            return await _userService.FindUserByIdAsync(new Guid(id), cancellationToken).ConfigureAwait(false);
         }
 
 #pragma warning disable CS8613 // Nullability of reference types in return type doesn't match implicitly implemented member.

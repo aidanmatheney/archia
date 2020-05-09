@@ -50,6 +50,8 @@
 
         public ArchiaUserContext UserContext => Get<ArchiaUserContext>();
 
+        public DbSeeder DbSeeder => Get<DbSeeder>();
+
         public object GetService(Type serviceType) => _services.GetService(serviceType);
         public ArchiaServiceScope CreateScope() => new ArchiaServiceScope(_services.CreateScope());
 

@@ -4,8 +4,6 @@
 
     using Archia.Entities;
 
-    using Microsoft.Extensions.Logging;
-
     public partial class CreateUserForm : ArchiaForm
     {
         public CreateUserForm(ArchiaServiceProvider services) : base(services)
@@ -25,15 +23,18 @@
             var role = (string)RoleComboBox.SelectedItem;
 
             var newUser = new AppUser(username);
-            try
+
+            var createResult = await Services.UserManager.CreateAsync(newUser, password).ConfigureAwait(false);
+            if (!createResult.Succeeded)
             {
-                await Services.UserManager.CreateAsync(newUser, password).ConfigureAwait(false);
-                await Services.UserManager.AddToRoleAsync(newUser, role).ConfigureAwait(false);
+                UiUtils.IdentityResultMessageBox(createResult, "Error creating user");
+                return;
             }
-            catch (Exception ex)
+
+            var addToRoleResult = await Services.UserManager.AddToRoleAsync(newUser, role).ConfigureAwait(false);
+            if (!addToRoleResult.Succeeded)
             {
-                Logger.LogError(ex, "Error creating user");
-                UiUtils.ErrorMessageBox("Error creating user");
+                UiUtils.IdentityResultMessageBox(createResult, "Error adding user to role");
                 return;
             }
 
