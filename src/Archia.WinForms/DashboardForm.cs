@@ -16,7 +16,7 @@
 
             InitializeComponent();
 
-            UsernameLabel.Text = services.UserContext.Username;
+            UsernameLabel.Text = services.UserContext.User.UserName;
             PopulateActionsPanel();
             SetStatus("Signed into Archia");
         }

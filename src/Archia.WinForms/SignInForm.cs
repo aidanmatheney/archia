@@ -1,6 +1,7 @@
 ﻿namespace Archia.WinForms
 {
     using System;
+    using System.Threading.Tasks;
 
     public partial class SignInForm : ArchiaForm
     {
@@ -10,37 +11,44 @@
 
 #if DEBUG
             UsernameTextBox.Text = "aidan";
-            PasswordTextBox.Text = "password1";
+            PasswordTextBox.Text = "password123";
 #endif
 
             HandleCredentialsTextChanged(this, EventArgs.Empty);
         }
 
-        private void SignInButton_Click(object sender, EventArgs e) => SignIn();
+        private void SignInButton_Click(object sender, EventArgs e) => _ = SignIn();
 
-        private void SignIn()
+        private async Task SignIn()
         {
             var username = UsernameTextBox.Text;
             var password = PasswordTextBox.Text;
 
-            if (username.Equals("aidan", StringComparison.OrdinalIgnoreCase) && password.Equals("password1"))
-            {
-                Services.UserContext.SignIn(username);
-
-                UsernameTextBox.ResetText();
-                PasswordTextBox.ResetText();
-
-                Hide();
-
-                var dashboardForm = new DashboardForm(Services);
-                dashboardForm.ShowDialog();
-
-                Show();
-            }
-            else
+            var user = await Services.UserManager.FindByNameAsync(username).ConfigureAwait(true);
+            if (user is null)
             {
                 UiUtils.ErrorMessageBox("Your username and/or password is incorrect", "Invalid Credentials");
+                return;
             }
+
+            var signInResult = await Services.SignInManager.CheckPasswordSignInAsync(user, password, false).ConfigureAwait(true);
+            if (!signInResult.Succeeded)
+            {
+                UiUtils.ErrorMessageBox("Your username and/or password is incorrect", "Invalid Credentials");
+                return;
+            }
+
+            Services.UserContext.SignIn(user);
+
+            UsernameTextBox.ResetText();
+            PasswordTextBox.ResetText();
+
+            Hide();
+
+            var dashboardForm = new DashboardForm(Services);
+            dashboardForm.ShowDialog();
+
+            Show();
         }
 
         private void HandleCredentialsTextChanged(object sender, EventArgs e)

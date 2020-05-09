@@ -37,6 +37,7 @@
 
         public UserManager<AppUser> UserManager => Get<UserManager<AppUser>>();
         public RoleManager<AppRole> RoleManager => Get<RoleManager<AppRole>>();
+        public SignInManager<AppUser> SignInManager => Get<SignInManager<AppUser>>();
 
         public ILogger Logger<TCategoryName>() => Get<ILogger<TCategoryName>>();
         public ILogger Logger(object category)

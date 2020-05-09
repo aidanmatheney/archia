@@ -2,23 +2,26 @@
 {
     using System;
 
+    using Archia.Entities;
+
     public sealed class ArchiaUserContext
     {
-        private string? _username;
+        private AppUser? _user;
 
         /// <exception cref="InvalidOperationException" />
-        public string Username
+        public AppUser User
         {
             get
             {
                 EnsureSignedIn();
-                return _username!;
+                return _user!;
             }
         }
-        public bool IsSignedIn => !(_username is null);
 
-        public void SignIn(string username) => _username = username;
-        public void SignOut() => _username = null;
+        public bool IsSignedIn => !(_user is null);
+
+        public void SignIn(AppUser user) => _user = user;
+        public void SignOut() => _user = null;
 
         /// <exception cref="InvalidOperationException" />
         public void EnsureSignedIn()
