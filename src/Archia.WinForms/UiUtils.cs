@@ -37,6 +37,46 @@
             return func();
         }
 
+        /// <summary>
+        /// Displays a success message box with specified text and caption.
+        /// </summary>
+        /// <param name="text">The text to display in the message box.</param>
+        /// <param name="caption">The text to display in the title bar of the message box.</param>
+        public static void SuccessMessageBox(string text, string caption = "Success")
+            => MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        /// <summary>
+        /// Displays an error message box with specified text and caption.
+        /// </summary>
+        /// <param name="text">The text to display in the message box.</param>
+        /// <param name="caption">The text to display in the title bar of the message box.</param>
+        public static void ErrorMessageBox(string text, string caption = "Error")
+            => MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        /// <summary>
+        /// Displays a confirmation message box with specified text and caption.
+        /// </summary>
+        /// <param name="text">The text to display in the message box.</param>
+        /// <param name="caption">The text to display in the title bar of the message box.</param>
+        public static bool ConfirmMessageBox(string text, string caption = "Confirm")
+            => MessageBox.Show(text, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+
+        /// <summary>
+        /// Displays a submit confirmation message box with specified text and caption.
+        /// </summary>
+        /// <param name="text">The text to display in the message box.</param>
+        /// <param name="caption">The text to display in the title bar of the message box.</param>
+        public static bool SubmitMessageBox(string text = "Are you sure you wish to submit?", string caption = "Submit?")
+            => ConfirmMessageBox(text, caption);
+
+        /// <summary>
+        /// Displays a cancel confirmation message box with specified text and caption.
+        /// </summary>
+        /// <param name="text">The text to display in the message box.</param>
+        /// <param name="caption">The text to display in the title bar of the message box.</param>
+        public static bool CancelMessageBox(string text = "Are you sure you wish to cancel?", string caption = "Cancel?")
+            => ConfirmMessageBox(text, caption);
+
         public static IReadOnlyDictionary<string, string> AssignAccessKeys(IReadOnlyCollection<string> labels, IReadOnlyDictionary<int, int>? skipsByLabelIdx = null)
         {
             var skipsByLabelIdxMut = skipsByLabelIdx is null ? null : new Dictionary<int, int>(skipsByLabelIdx);

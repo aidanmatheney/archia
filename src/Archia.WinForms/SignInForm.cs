@@ -1,20 +1,11 @@
 ﻿namespace Archia.WinForms
 {
     using System;
-    using System.Windows.Forms;
 
-    using Archia.Utils;
-
-    public partial class SignInForm : Form
+    public partial class SignInForm : ArchiaForm
     {
-        private readonly ArchiaServiceProvider _services;
-
-        public SignInForm(ArchiaServiceProvider services)
+        public SignInForm(ArchiaServiceProvider services) : base(services)
         {
-            ThrowIf.Null(services, nameof(services));
-
-            _services = services;
-
             InitializeComponent();
 
 #if DEBUG
@@ -34,21 +25,21 @@
 
             if (username.Equals("aidan", StringComparison.OrdinalIgnoreCase) && password.Equals("password1"))
             {
-                _services.UserContext.SignIn(username);
+                Services.UserContext.SignIn(username);
 
                 UsernameTextBox.ResetText();
                 PasswordTextBox.ResetText();
 
                 Hide();
 
-                var dashboardForm = new DashboardForm(_services);
+                var dashboardForm = new DashboardForm(Services);
                 dashboardForm.ShowDialog();
 
                 Show();
             }
             else
             {
-                MessageBox.Show("Your username and/or password is incorrect", "Invalid Credentials", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UiUtils.ErrorMessageBox("Your username and/or password is incorrect", "Invalid Credentials");
             }
         }
 

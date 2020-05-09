@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-namespace Archia.WinForms.UseCases
+﻿namespace Archia.WinForms.UseCases
 {
-    public partial class OrderMedicationForm : Form
+    public partial class OrderMedicationForm : ArchiaForm
     {
-        public OrderMedicationForm(ArchiaServiceProvider services)
+        public OrderMedicationForm(ArchiaServiceProvider services) : base(services)
         {
             InitializeComponent();
         }

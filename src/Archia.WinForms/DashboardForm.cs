@@ -5,20 +5,14 @@
     using System.Linq;
     using System.Windows.Forms;
 
-    using Archia.Utils;
+    using Archia.WinForms.Admin;
     using Archia.WinForms.UseCases;
 
-    public partial class DashboardForm : Form
+    public partial class DashboardForm : ArchiaForm
     {
-        private readonly ArchiaServiceProvider _services;
-
-        public DashboardForm(ArchiaServiceProvider services)
+        public DashboardForm(ArchiaServiceProvider services) : base(services)
         {
-            ThrowIf.Null(services, nameof(services));
-
             services.UserContext.EnsureSignedIn();
-
-            _services = services;
 
             InitializeComponent();
 
@@ -31,15 +25,17 @@
         {
             AddActions
             (
-                ("Patient Check-In", () => new PatientCheckInForm(_services)),
-                ("Patient Search", () => new PatientSearchForm(_services)),
-                ("Edit Patient Personal Information", () => new EditPatientPersonalInformationForm(_services)),
-                ("Examine Patient", () => new ExaminePatientForm(_services)),
-                ("Assign Room", () => new AssignRoomForm(_services)),
-                ("Edit Patient Medical Records", () => new EditPatientMedicalRecordsForm(_services)),
-                ("Order Medication", () => new OrderMedicationForm(_services)),
-                ("Delete Patient", () => new DeletePatientForm(_services)),
-                ("Schedule Appointment", () => new ScheduleAppointmentForm(_services))
+                ("Patient Check-In", () => new PatientCheckInForm(Services)),
+                ("Patient Search", () => new PatientSearchForm(Services)),
+                ("Edit Patient Personal Information", () => new EditPatientPersonalInformationForm(Services)),
+                ("Examine Patient", () => new ExaminePatientForm(Services)),
+                ("Assign Room", () => new AssignRoomForm(Services)),
+                ("Edit Patient Medical Records", () => new EditPatientMedicalRecordsForm(Services)),
+                ("Order Medication", () => new OrderMedicationForm(Services)),
+                ("Delete Patient", () => new DeletePatientForm(Services)),
+                ("Schedule Appointment", () => new ScheduleAppointmentForm(Services)),
+
+                ("Create User", () => new CreateUserForm(Services))
             );
 
             #region Implementation

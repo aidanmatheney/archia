@@ -86,6 +86,7 @@
             this.CreateButton.TabIndex = 0;
             this.CreateButton.Text = "Create";
             this.CreateButton.UseVisualStyleBackColor = true;
+            this.CreateButton.Click += new System.EventHandler(this.CreateButton_Click);
             // 
             // CancelButton_
             // 
@@ -97,6 +98,7 @@
             this.CancelButton_.TabIndex = 1;
             this.CancelButton_.Text = "Cancel";
             this.CancelButton_.UseVisualStyleBackColor = true;
+            this.CancelButton_.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // FieldsPanel
             // 
@@ -185,9 +187,9 @@
             // CreateUserForm
             // 
             this.AcceptButton = this.CreateButton;
-            this.CancelButton = this.CancelButton_;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.CancelButton_;
             this.ClientSize = new System.Drawing.Size(459, 195);
             this.Controls.Add(this.MainPanel);
             this.Name = "CreateUserForm";

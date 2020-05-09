@@ -38,7 +38,15 @@
         public UserManager<AppUser> UserManager => Get<UserManager<AppUser>>();
         public RoleManager<AppRole> RoleManager => Get<RoleManager<AppRole>>();
 
-        public ILogger Logger<T>() => Get<ILogger<T>>();
+        public ILogger Logger<TCategoryName>() => Get<ILogger<TCategoryName>>();
+        public ILogger Logger(object category)
+        {
+            ThrowIf.Null(category, nameof(category));
+
+            var loggerType = typeof(ILogger<>).MakeGenericType(category.GetType());
+            var logger = (ILogger)Get(loggerType);
+            return logger;
+        }
 
         public ArchiaUserContext UserContext => Get<ArchiaUserContext>();
 
@@ -46,5 +54,6 @@
         public ArchiaServiceScope CreateScope() => new ArchiaServiceScope(_services.CreateScope());
 
         private T Get<T>() => _services.GetRequiredService<T>();
+        private object Get(Type serviceType) => _services.GetRequiredService(serviceType);
     }
 }

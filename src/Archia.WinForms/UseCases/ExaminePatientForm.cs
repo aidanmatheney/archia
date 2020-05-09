@@ -1,32 +1,24 @@
 ﻿namespace Archia.WinForms.UseCases
 {
     using System;
-    using System.Windows.Forms;
 
     using Archia.Entities;
-    using Archia.Utils;
 
-    public partial class ExaminePatientForm : Form
+    public partial class ExaminePatientForm : ArchiaForm
     {
-        private readonly ArchiaServiceProvider _services;
-
-        public ExaminePatientForm(ArchiaServiceProvider services)
+        public ExaminePatientForm(ArchiaServiceProvider services) : base(services)
         {
-            ThrowIf.Null(services, nameof(services));
-
             services.UserContext.EnsureSignedIn();
-
-            _services = services;
 
             InitializeComponent();
         }
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you wish to submit?", "Confirm Submit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            if (!UiUtils.SubmitMessageBox())
                 return;
 
-            _services.PatientService.CreatePatientAsync(new Patient
+            Services.PatientService.CreatePatientAsync(new Patient
             {
                 FirstName = "A"
             });
@@ -36,10 +28,8 @@
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you wish to cancel?", "Confirm Cancel", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
+            if (UiUtils.CancelMessageBox())
                 Close();
-            }
         }
     }
 }

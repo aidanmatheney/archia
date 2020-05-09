@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-namespace Archia.WinForms.UseCases
+﻿namespace Archia.WinForms.UseCases
 {
-    public partial class ScheduleAppointmentForm : Form
+    public partial class ScheduleAppointmentForm : ArchiaForm
     {
-        public ScheduleAppointmentForm(ArchiaServiceProvider services)
+        public ScheduleAppointmentForm(ArchiaServiceProvider services) : base(services)
         {
             InitializeComponent();
         }

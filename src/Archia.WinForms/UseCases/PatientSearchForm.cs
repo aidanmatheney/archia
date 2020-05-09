@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-namespace Archia.WinForms.UseCases
+﻿namespace Archia.WinForms.UseCases
 {
-    public partial class PatientSearchForm : Form
+    public partial class PatientSearchForm : ArchiaForm
     {
-        public PatientSearchForm(ArchiaServiceProvider services)
+        public PatientSearchForm(ArchiaServiceProvider services) : base(services)
         {
             InitializeComponent();
         }
